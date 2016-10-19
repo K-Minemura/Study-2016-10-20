@@ -25,17 +25,17 @@ public class MessageServiceTest {
 
     @Before
     public void before() throws Exception {
-        
+
     }
 
     @After
     public void after() throws Exception {
-        
+
     }
-    
+
     @Test
     public void createMessage() {
         String result = messageService.createMessage("test !!");
-        assertEquals("Message Service is not equal.", result, "Hi ! test !!");
+        assertEquals("Message Service is not equal.", "Hi ! test !!", result);
     }
 }
