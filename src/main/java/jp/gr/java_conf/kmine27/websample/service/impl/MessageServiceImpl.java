@@ -9,7 +9,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public String createMessage(String message) {
-        return "Hi ! " + message;
+        return "Hi !! " + message;
     }
 
 }
