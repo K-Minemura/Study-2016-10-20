@@ -15,6 +15,14 @@ apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+def enveronmentResourceDir = 'conf/local'
+if (project.hasProperty('env')) {
+    enveronmentResourceDir = 'conf/' + project.getProperty('env')
+}
+sourceSets.all {
+     resources.srcDirs += enveronmentResourceDir
+}
+
 jar {
 	baseName = 'studySpringBoot'
 	version = '0.0.1-SNAPSHOT'
@@ -26,10 +34,8 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
-//	compile('org.springframework.boot:spring-boot-starter-websocket')
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
@@ -37,10 +43,4 @@ dependencies {
 	compile('org.thymeleaf:thymeleaf-spring4')
 }
 
-
-eclipse {
-	classpath {
-		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-	}
-}
+defaultTasks 'bootRun'

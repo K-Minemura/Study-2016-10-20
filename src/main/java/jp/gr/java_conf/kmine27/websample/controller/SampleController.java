@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.gr.java_conf.kmine27.websample.exception.ApplicationException;
 import jp.gr.java_conf.kmine27.websample.form.MessageForm;
 import jp.gr.java_conf.kmine27.websample.service.MessageService;
 
@@ -28,17 +29,20 @@ public class SampleController {
         }
         return "index";
     }
+
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String sample() {
         return "redirect:/";
     }
     
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
-    public String sample(@Validated @ModelAttribute MessageForm messageForm, BindingResult result, Model model) {
+    public String sample(@Validated @ModelAttribute MessageForm messageForm, BindingResult result, Model model)
+            throws ApplicationException {
         if (result.hasErrors()) {
             return index(model);
         }
-        model.addAttribute(MESSAGE_KEY, messageService.createMessage(messageForm.getMessage()));
+        String message = messageService.createMessage(messageForm.getMessage());
+        model.addAttribute(MESSAGE_KEY, message);
         return "index";
     }
 }
